@@ -1,0 +1,30 @@
+h1 {
+	font-size: 100px;
+	margin-left: 33%;
+	margin-right: 33%;
+	font-style: Impact;
+	color: #ff9933;
+	text-shadow: 4px 4px #ff9933;
+
+	
+}
+
+body {
+	background-color: #fffec8;
+}
+
+#rickroll {
+	margin-left: 25%;
+	padding-bottom: 30px;	
+}
+
+#lyrics {
+	text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+	padding: 50px;
+	background: white;
+	margin-bottom: 50px;
+	border-style: solid;
+	border-color: gray;
+}
