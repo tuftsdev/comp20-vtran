@@ -1,12 +1,6 @@
 var map;
     function initMap() {
-       	map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 42.352271, lng: -71.05524200000001},
-          zoom: 13
-        });
-      }
-
-var location = [
+    	var location = [
 	{station: "Alewife",lat: 42.395428, lng: -71.142483},
 	{station: "Davis",lat: 42.39674, lng: -71.121815},
 	{station: "Porter Square",lat: 42.3884, lng: -71.11914899999999},
@@ -31,8 +25,26 @@ var location = [
 	{station: "Ashmont",lat: 42.284652, lng: -71.06448899999999},	
 ];
 
-var img = new Image();
-img.src = 'redflag.png';
+
+       	map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 42.352271, lng: -71.05524200000001},
+          zoom: 13
+        });
+
+
+for (i = 0; i < location.length; i++) {
+	var pos = new google.maps.LatLng(location[i].lat,location[i].lng);
+	var marker = new google.maps.Marker({
+          //position: {lat: latitide, lng: longitude},
+          position: pos,
+          map: map,
+          title: location[i].station,
+          icon: 'train.png'
+        });
+}
+
+// var img = new Image();
+// img.src = 'redflag.png';
 // function createMarker(station, latitude, longitude) {
 // 	var pos = new google.maps.LatLng(latitide,longitude);
 // 	var marker = new google.maps.Marker({
@@ -44,16 +56,6 @@ img.src = 'redflag.png';
 //         });
 // }
 
-for (i = 0; i < location.length; i++) {
-	var pos = new google.maps.LatLng(location[i].lat,location[i].lng);
-	var marker = new google.maps.Marker({
-          //position: {lat: latitide, lng: longitude},
-          position: pos,
-          map: map,
-          title: location[i].station,
-          icon: image
-        });
-}
 
 
 var route1 = [];
@@ -63,13 +65,13 @@ for (i = 0; i < 13; i++) {
 }
 
 var route2 = [];
-for (i = 13; i < 19; i++) {
+for (i = 12; i < 18; i++) {
 	var stop =  {lat: location[i].lat, lng: location[i].lng};
 	route2.push(stop);
 }
 
-var route3 = [{lat: location[13].lat, lng: location[13].lng}];
-for (i = 19; i < 23; i++) {
+var route3 = [{lat: location[12].lat, lng: location[12].lng}];
+for (i = 18; i < 22; i++) {
 	var stop =  {lat: location[i].lat, lng: location[i].lng};
 	route3.push(stop);
 }
@@ -87,4 +89,8 @@ for (i = 0; i < 3 ; i++) {
 	
 	redline.setMap(map);
 }
+      }
+
+//<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
 
