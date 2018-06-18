@@ -1,1 +1,22 @@
 /* Your CSS here... */
+#messages {
+	background: white; 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 25px;
+	margin-right: 70%;
+	margin-left: 50px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #8F9395;
+}
+
+body {
+	background: #e0e6ea;
+}
+
+h1 {
+	font-family: "Times New Roman", Times, serif;
+	color: #505254;
+	font-size: 60px;
+	margin-left: 20px;
+}
