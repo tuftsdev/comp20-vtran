@@ -9,8 +9,9 @@ function parse() {
 	        text[1]['username'];
 			}	
 	};
-	request.open("GET", "data.json", true);
+	//part 1 & 2
+	//request.open("GET", "data.json", true);
 	// part 3
-	//request.open("GET", "https://messagehub.herokuapp.com/messages.json", true);
+	request.open("GET", "https://messagehub.herokuapp.com/messages.json", true);
 	request.send();
 };
