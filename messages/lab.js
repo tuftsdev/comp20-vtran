@@ -10,6 +10,7 @@ function parse() {
 			}	
 	};
 	request.open("GET", "data.json", true);
+	// part 3
 	//request.open("GET", "https://messagehub.herokuapp.com/messages.json", true);
 	request.send();
 };
