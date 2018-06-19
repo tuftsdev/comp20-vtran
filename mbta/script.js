@@ -39,6 +39,9 @@ function initMap() {
 	          title: location[i].station,
 	          icon: 'train.png'
 	        });
+		marker.addListener('click', function() {
+        stationinfowindow.open(map, marker);
+    	});
 	}
 
 	// begining of redline
@@ -73,6 +76,106 @@ function initMap() {
 		
 		redline.setMap(map);
 	}
+
+	// get and mark my location
+	var myloc;
+	function success (position) {
+		var latitude  = position.coords.latitude;
+    	var longitude = position.coords.longitude;
+    	var myLatLng = {lat: latitude, lng: longitude};
+    	myloc = myLatLng;
+    	var mygeo = new google.maps.Marker({
+	        position: myLatLng,
+	        map: map,
+	        title: 'My Location',
+	        icon: 'me.png'
+        });
+	}
+
+    navigator.geolocation.getCurrentPosition(success);
+
+    // info window 
+    function distance () {
+    	var min = 9000000000000.0;
+    	for (k = 0; k < location.length; k++) {
+    		var pos = new google.maps.LatLng(location[k].lat,location[k].lng);
+		    var proximity = google.maps.geometry.spherical.computeDistanceBetween(myloc, pos);
+		    if (proximity < min) {
+		    	min = proximity;
+		    	var stop = location[k].station;
+		    }
+    	}
+    	var miles = proximity * 0.000621371192;
+    	var closest = {station: stop, distance: miles, coordinates: pos};
+    	return closest;
+    }
+
+    var closest_red_mtba = distance();
+
+   
+    var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Closest MBTA Red Line subway station</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Station: </p>'+
+            closest_red_mtba.station + 
+            '<p>Distance: </p>'+
+          	closest_red_mtba.distance + 
+            '</div>'+
+            '</div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    mygeo.addListener('click', function() {
+        infowindow.open(map, mygeo);
+    });
+
+    // polyline from me to closest station
+	var myline = new google.maps.Polyline({
+		path: [closest_red_mtba.pos,myloc],
+		geodesic: true,
+		strokeColor: '#9932CC',
+		strokeOpacity: 1.0,
+		strokeWeight: 2
+	});
+		
+	myline.setMap(map);
+
+	// JSON API
+	var stationinfowindow = new google.maps.InfoWindow({
+        content: contentString2
+    });
+
+    var contentString2 = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Closest MBTA Red Line subway station</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Station: </p>'+
+            closest_red_mtba.station + 
+            '<p>Distance: </p>'+
+          	closest_red_mtba.distance + 
+            '</div>'+
+            '</div>';
+
+
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200){
+			var text = JSON.parse(request.responseText);
+	      	document.getElementById("messages").innerHTML = text[0]['content'] + " " + 
+	        text[0]['username'] + "<br />" +  "<br />" + text[1]['content'] + " " + 
+	        text[1]['username'];
+			}	
+	};
+	request.open("GET", "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=[STOP_ID_HERE]", true);
+	request.send();
+	
+
+
 }
 
 //<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
