@@ -3,6 +3,9 @@ ASPECTS IMPLEMENTED
 - all red line marked 
 - red polyline 
 - icon image for marker
+- my geo location
+- polyline and info window to closest mbta
+- info window for each train schedule
 
 COLLABORATIONS
 - google
@@ -12,4 +15,4 @@ COLLABORATIONS
 - piazza
 
 TIME
-- approx. 4.5 hours
+- approx. 6 hours

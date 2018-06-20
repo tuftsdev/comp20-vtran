@@ -125,9 +125,9 @@ function initMap() {
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Closest MBTA Red Line subway station</h1>'+
             '<div id="bodyContent">'+
-            '<p>Station: </p>'+
+            '<p><b>Station: </b></p>'+
             stop + 
-            '<p>Distance: </p>'+
+            '<p><b>Distance: </b></p>'+
           	miles + " miles" +
             '</div>'+
             '</div>';
@@ -158,9 +158,9 @@ function initMap() {
 					else {
 						var dir = "North Bound"
 					}
-					info += "Arrival: " + text.data[i].attributes.arrival_time + 
-						"Departure: " + text.data[i].attributes.departure_time + 
-						"Direction: " + dir + "<br>";
+					info += "Arrival: " + text.data[i].attributes.arrival_time + "\xa0\xa0" +
+						"  Departure: " + text.data[i].attributes.departure_time + "\xa0\xa0" +
+						"  Direction: " + dir + "<br>";
 						
 				}
 				
