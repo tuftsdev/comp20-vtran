@@ -40,10 +40,7 @@ function initMap() {
 	          icon: 'train.png'
 	        });
 
-	requestSchedule(location[i].id, marker);
-
-		 	
-
+		requestSchedule(location[i].id, marker);
 	}
 
 	// begining of redline
@@ -84,6 +81,7 @@ function initMap() {
 	});
 
 	function success (position) {
+		// my location
 		var latitude  = position.coords.latitude;
     	var longitude = position.coords.longitude;
     	var myLatLng = {lat: latitude, lng: longitude};
@@ -110,19 +108,19 @@ function initMap() {
     	}
     	var miles = proximity * 0.000621371192;
 
-    	// line
+    	// polyline
     	var myline = new google.maps.Polyline({
 		path: [{lat: redlat, lng: redlng},{lat: position.coords.latitude, lng: position.coords.longitude}],
 		geodesic: true,
 		strokeColor: '#9932CC',
 		strokeOpacity: 1.0,
 		strokeWeight: 2
-	});
+		});
 		
-	myline.setMap(map);
+		myline.setMap(map);
 
     	// info window content
-    	  var contentString = '<div id="content">'+
+    	var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Closest MBTA Red Line subway station</h1>'+
@@ -130,30 +128,24 @@ function initMap() {
             '<p>Station: </p>'+
             stop + 
             '<p>Distance: </p>'+
-          	miles + 
+          	miles + " miles" +
             '</div>'+
             '</div>';
 
 
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-            // set info window
+    	var infowindow = new google.maps.InfoWindow({
+        	content: contentString
+    	});
+        
+        // set info window
         mygeo.addListener('click', function() {
-        infowindow.open(map, mygeo);
+        	infowindow.open(map, mygeo);
     	});
 	}
 
-
-   
-
-
-
 	// JSON API
-	
-	//var info;
-
     function requestSchedule (stopid, marker) {
+
     	var info = "";
 		var request = new XMLHttpRequest();
 		request.onreadystatechange = function() {
@@ -169,39 +161,32 @@ function initMap() {
 					info += "Arrival: " + text.data[i].attributes.arrival_time + 
 						"Departure: " + text.data[i].attributes.departure_time + 
 						"Direction: " + dir + "<br>";
-						console.log("hi2");
+						
 				}
-				console.log(info);
 				
 				var contentString2 = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Station Train Schedule</h1>'+
-            '<div id="bodyContent">'+
-            info +
-            '</div>'+
-            '</div>';
+		            '<div id="siteNotice">'+
+		            '</div>'+
+		            '<h1 id="firstHeading" class="firstHeading">Station Train Schedule</h1>'+
+		            '<div id="bodyContent">'+
+		            info +
+		            '</div>'+
+		            '</div>';
 
-		var stationinfowindow = new google.maps.InfoWindow({
-	        content: contentString2
-	    });
+				var stationinfowindow = new google.maps.InfoWindow({
+			        content: contentString2
+			    });
 
-	    marker.addListener('click', function() {
-	        stationinfowindow.open(map, marker);
-    	});
-
+			    marker.addListener('click', function() {
+			        stationinfowindow.open(map, marker);
+		    	});
 			}
 		};
 
 		var link = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + stopid;
 		request.open("GET", link, true);
-		request.send();
-
-	  
+		request.send();	  
 	}
-
 }
 
-//<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
-
+// //<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
