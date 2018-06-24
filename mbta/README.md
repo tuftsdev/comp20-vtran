@@ -6,6 +6,7 @@ ASPECTS IMPLEMENTED
 - my geo location
 - polyline and info window to closest mbta
 - info window for each train schedule
+- new link to mbta info 
 
 COLLABORATIONS
 - google

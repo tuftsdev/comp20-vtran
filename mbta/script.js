@@ -183,10 +183,11 @@ function initMap() {
 			}
 		};
 
-		var link = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=" + stopid;
+		var link = "https://warm-tor-81508.herokuapp.com/redline/schedule.json?stop_id=" + stopid;
 		request.open("GET", link, true);
 		request.send();	  
 	}
 }
+
 
 // //<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
