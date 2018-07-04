@@ -11,11 +11,11 @@
 <body>
   <h1>Security and Privacy Assessment</h1>
   <h2>Introduction</h2>
-  	<p>I have been hired a security consultant to perform a security assessment of a potentially vunerable web application: "https://jordan-marsh.herokuapp.com/". The web application allows user to submit a login and their latitude and longitude, which accesses a database to return a log of coordinate checkins. This document identifies the website's vunerabilities and suggest solutions to fix them. </p>
+  	<p>I have been hired a security consultant to perform a security assessment of a potentially vunerable web application: "https://jordan-marsh.herokuapp.com/". The web application allows users to submit a login and their latitude and longitude, which accesses a database to return a log of coordinate checkins. This document identifies the website's vunerabilities and suggests solutions to fix them. </p>
   <h2>Methodology</h2>
-  	<p>"Black box" testing was first used where the web application was first examined without looking into the internal structure. Afterwards, "white box" testing was used where the source code is evaluated for possible security issues. The Google Chrome extension, Postman, was used to help perform HTTP request and reading responses.</p>
+  	<p>"Black box" testing was first used where the web application was first examined without looking into the internal structure. Afterwards, "white box" testing was used where the source code was evaluated for possible security issues. The Google Chrome extension, Postman, was used to help perform HTTP request and reading responses for testing purposes.</p>
   <h2>Abstract Findings</h2>
-  	<p>The web application places too much trust in user based input. There is a lack of validation processes used on the server side to prevent attacks. Attempts are made to do very simple checks on user input, but not enough is implented to protect against malicious attacks. Many of the vunerabilities allow the attacker to use unexpected input, which does not follow the intended functionality of the web application.</p>
+  	<p>The web application places too much trust in user-based input. There is a lack of validation processes used on the server side to prevent attacks. Attempts are made to do very simple checks on user input, but not enough is implented to protect against malicious attacks. Many of the vunerabilities allow the attacker to use unexpected input, which does not follow the intended functionality of the web application and causes security issues.</p>
   <h2>Issues Found</h2>
   	<p><b>1. Cross-Site Scripting</b>
   		<ul>
@@ -35,11 +35,11 @@
   			<li>Location: "https://jordan-marsh.herokuapp.com/sendLocation" is where the invalid JSON causes the server to crash.</li>
   			<li>Severity: MEDIUM</li>
   				<ul>
-  					<li>The server crashes and rendering the page useless;however, the problem can be easily resolved.</li>
+  					<li>The server crashes and renders the page useless;however, the problem can be easily resolved.</li>
   				</ul>
   			<li>Description: When an additonal string and its corresponding value is added to the JSON data to be inserted into the database, sent as a POST request, the server crashes, see examples below. When the information is being inserted into the database in <code> collection.insert(toInsert, function (errorUpdate, result) </code> errorUpdate is not defined. As a result, there is nothing to catch the error. Usually, if an object is submitted in a different format, the errorUpdate will be invoked to handle the error. In this case, the error is thrown without a catch. </li>
-  			<img src="screenshots/invalid_JSON_sendLocation.png" alt="invalid JSON on send location"/>
-  			<img src="screenshots/server_crash.png" alt="server crash"/>
+  			<img id="j1" src="screenshots/invalid_JSON_sendLocation.png" alt="invalid JSON on send location"/>
+  			<img id="j2" src="screenshots/server_crash.png" alt="server crash"/>
   			<li>Resolution: Route the error to a try-catch block that will handle an error with the JSON data. Caution can also be taken to make sure that properties specifically needed are only processed and avoid other things that the JSON might contain. Only body parsing does not guarantee the JSON data will come as expected, therefore having filters can also help avoid the problem. </li>
   		</ul>
   	<p><b>3. Server Crash with invalid JSON</b>
@@ -47,13 +47,13 @@
   			<li>Location: "https://jordan-marsh.herokuapp.com/submit" is where the invalid JSON causes the server to crash.</li>
   			<li>Severity: MEDIUM</li>
   				<ul>
-  					<li>The server crashes and rendering the page useless;however, the problem can be easily resolved.</li>
+  					<li>The server crashes and renders the page useless;however, the problem can be easily resolved.</li>
   				</ul>
-  			<li>Description: This is a similar issue to the one listed above (see 2), but is found in a different section of the source code. When an additonal string and its corresponding value is added to the JSON data to be inserted into the database, sent as a POST request, the server crashes, see examples below. In this example, the expected input strings are login, lat, and lng. An additional <code> "cake" : "strawberry balsamic"</code> is added and creates a crash because it is not accounted for within the server side. Notice how in the bottom right hand corner a status of 500 is returned. When the information is being inserted into the database in <code> collection.insert(toInsert, function (errorUpdate, result) </code> errorUpdate is not defined. As a result, there is nothing to catch the error. Usually, if an object is submitted in a different format, the errorUpdate will be invoked to handle the error. In this case, the error is thrown without a catch.</li>
-  			<img src="screenshots/invalid_JSON_submit.png" alt="invalid JSON on submit"/>
+  			<li>Description: This is a similar issue to the one listed above (see 2), but is found in a different section of the source code. When an additonal string and its corresponding value is added to the JSON data to be inserted into the database, sent as a POST request, the server crashes, see examples below. In this example, the expected input strings are login, lat, and lng. An additional <code> "cake" : "strawberry balsamic"</code> is added and creates a crash because it is not accounted for within the server side. Notice how in the bottom right hand corner a status of 500 is returned. When the information is being inserted into the database in <code> collection.insert(toInsert, function (errorUpdate, result)</code>          errorUpdate is not defined. As a result, there is nothing to catch the error. Usually, if an object is submitted in a different format, the errorUpdate will be invoked to handle the error. In this case, the error is thrown without a catch.</li>
+  			<img id="j1" src="screenshots/invalid_JSON_submit.png" alt="invalid JSON on submit"/>
   			<li>Resolution: Route the error to a try-catch block that will handle an error with the JSON data. Caution can also be taken to make sure that properties specifically needed are only processed and avoid other things that the JSON might contain. Only body parsing does not guarantee the JSON data will come as expected, therefore having filters can also help avoid the problem.</li>
   		</ul>
   <h2>Conclusion</h2>
-  	<p>The web application in its current state is not secure and action can and should be taken to update the web security against malicious attacks. A lot of the problems stem from trusting user input. Some suggestions to help prevent attacks by going over user input include escaping, validating input, and sanitizing. Escaping helps censor input by not allowing characters like '<' or '>' which may be linked to attacks. Validating input is a good way to ensure a program works as intended by making sure its in the proper form while sanitizing checks over for illegal characters to make sure things are "safe". These efforts will help minimize chances of an attack, but do not completely eliminate the risk of an attack. It can also be a good idea to use tools that perform scans for website vunerabilities and to also look over code logic for general errors especially when adding new parts to an application.</p>
+  	<p>The web application in its current state is not secure and action can and should be taken to update the web security against malicious attacks. A lot of the problems stem from trusting user input. Some suggestions to help prevent attacks are going over user input with methods like escaping, validating input, and sanitizing. Escaping helps censor input by not allowing characters like <code>&lt;</code> or <code>&gt;</code> which may be linked to attacks. Validating input is a good way to ensure a program works as intended by making sure its in the proper form while sanitizing checks over for illegal characters to make sure things are "safe". These efforts will help minimize chances of an attack, but do not completely eliminate the risk of an attack. It can also be a good idea to use tools that perform scans for website vunerabilities and to also look over code logic for general errors especially when adding new parts to an application.</p>
 </body>
 </html>

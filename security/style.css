@@ -1,0 +1,35 @@
+#j1 {
+	width: 600px;
+}
+
+#j2 {
+	width: 500px;
+}
+
+body {
+	font-size: 16px;
+	margin-left: 50px;
+	margin-right: 200px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+h1 {
+	padding: 50px;
+	text-align: center;
+	font-size: 60px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+h2 {
+	border-left: solid; 
+	border-color: #537E8C;
+	border-width: 8px;
+	font-size: 30px;
+	background-color: #ADD8E6;
+	text-indent: 10px;
+	padding: 6px;
+}
+
+code {
+	background-color: #E8E8E8;
+}
