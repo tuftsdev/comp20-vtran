@@ -9,4 +9,4 @@ COLLABORATIONS
 - owasp
 
 TIME
-approx. 14 hours
+- approx. 14 hours
